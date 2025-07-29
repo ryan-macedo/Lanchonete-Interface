@@ -3,8 +3,7 @@
 Este projeto foi desenvolvido durante o 1º Semestre de Engenharia de Software na **UMC - Universidade de Mogi das Cruzes** e tem como objetivo simular um sistema de gerenciamento de lanchonete, 
 permitindo que o usuário acesse a parte do Administrador e do Operador.
 
-## Importância do projeto
-O seu desenvolvimento contribuiu para melhor compreensão e consolidação da linguagem Python
+
 
 ## Funcionalidades
 ### Administrador:
