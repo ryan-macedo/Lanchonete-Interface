@@ -4,9 +4,9 @@ Este projeto foi desenvolvido durante o 1º Semestre de Engenharia de Software n
 permitindo que o usuário acesse a parte do Administrador e do Operador.
 
 ## Tecnologias utilizadas
-- **Python 3**
-- Manipulação de arquivos '.txt'
-- Estruturas de dados básicas (listas, loops, funções e condicionais)
+- `Python 3`
+- `Manipulação de arquivos '.txt'`
+- `Estruturas de dados básicas (listas, loops, funções e condicionais)`
 
 
 
@@ -47,3 +47,7 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 * Questiona se o usuário deseja adicionar mais algum produto
 * Exibe um resumo do pedido
 
+## Como executar o projeto
+1. Instale o [Python 3](https://www.python.org/downloads/)
+2. Clone este repositório:
+   `git clone 
