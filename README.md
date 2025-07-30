@@ -3,6 +3,11 @@
 Este projeto foi desenvolvido durante o 1º Semestre de Engenharia de Software na **UMC - Universidade de Mogi das Cruzes** e tem como objetivo simular um sistema de gerenciamento de lanchonete, 
 permitindo que o usuário acesse a parte do Administrador e do Operador.
 
+## Tecnologias utilizadas
+- **Python 3**
+- Manipulação de arquivos '.txt'
+- Estruturas de dados básicas (listas, loops, funções e condicionais)
+
 
 
 ## Funcionalidades
@@ -29,7 +34,7 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
    * Solicita o código do produto que será removido
    * Apaga o produto do arquivo .txt
 
-#
+---
 
 ### Operador:
 
@@ -41,3 +46,4 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 * Solicita a quantidade
 * Questiona se o usuário deseja adicionar mais algum produto
 * Exibe um resumo do pedido
+
