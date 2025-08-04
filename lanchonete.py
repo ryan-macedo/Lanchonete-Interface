@@ -27,7 +27,7 @@ def menu():
 # Função que exibe o menu do administrador e valida a escolha
 def menu_adm():
     print("\n\n--- MENU ADMINISTRADOR ---\n")
-    print("1- Cadastrar produto\n2- Listar produto\n3- Alterar produto\n4- Apagar produto\n0- Voltar")
+    print("1- Cadastrar produto\n2- Listar produtos\n3- Alterar produto\n4- Apagar produto\n0- Voltar")
 
     escolha = input("\nEscolha uma opção:\n")
 
@@ -95,26 +95,16 @@ def atualizar():
                 val.append(partes[2])
 
 # Função para cadastrar um novo produto
-def cadastro():
+def cadastro(produto, valor):
     codigo = busca_cod()  # Gera novo código
-    print("\n\n--- CADASTRO ---\n")
 
     arquivo = open('produtos.txt', 'a+', encoding='utf-8')
-
-    print(f"\nO código gerado para o novo produto é: {codigo}")
-    produto = input("\nDigite o nome do produto:\n")
-    while (produto == ""):
-        print("Opção inválida!\n")
-        produto = input("\nDigite o nome do produto:\n")
-
-    valor = input("\nDigite o valor do produto (R$):\n")
-    while (valor == "" or valor.isalpha()):
-        print("Opção inválida!\n")
-        valor = (input("\nDigite o valor do produto (R$):\n"))
 
     # Grava o novo produto no arquivo
     arquivo.write(f"{codigo} | {produto} | {valor}\n")
     arquivo.close()
+
+    return codigo
 
 # Função para listar os produtos cadastrados
 def listar():
@@ -252,6 +242,11 @@ def pedido_op():
             # Lista os produtos
             listar()
             
+            itens = arquivo.read()
+            if len(itens) == 0:
+                input("\nÉ necessário cadastrar um produto.")
+                exit()
+
             # Solicita o código do produto
             pedido_cliente = input("Digite o código do produto desejado:\n")
             
@@ -306,108 +301,3 @@ def pedido_op():
     # Caso não deseje iniciar o pedido, o loop é encerrado
     else:
         continuar_pedido = "n"
-
-
-# Loop principal
-while(continuar_menu == "s"):
-    escolha1 = menu()    # Mostra o menu principal
-
-
-# Menu do administrador
-    if escolha1 == "1":
-        continuar_adm = "s"
-
-        while(continuar_adm == "s"):
-            escolha_adm = menu_adm()    # Exibe o menu do administrador
-
-
-            # Cadastro dos produtos
-            if escolha_adm == "1":
-                continuar_cadastrar = "s"
-
-                while(continuar_cadastrar == "s"):
-                    cadastro()  # Entra na função de cadastro
-                    
-                    continuar_cadastrar = input("\nDeseja cadastrar mais algum produto? (s/n):\n").lower()
-
-                    # Verifica se a entrada do uuário é válida
-                    while(continuar_cadastrar not in ["s", "n"]):
-                        print("\nInválido! Digite 's' para 'sim' ou 'n' para 'não'.")
-                        continuar_cadastrar = input("\nDeseja cadastrar mais algum produto? (s/n):\n").lower()
-
-            # Listar produtos
-            elif escolha_adm == "2":
-                continuar_listar = "s"
-
-                while(continuar_listar == "s"):
-                    listar()    # Entra na função listar produtos
-
-                    voltar = input("Digite '0' para voltar:\n")
-
-                    # Verifica a entrada do usuário
-                    while(voltar != "0"):
-                        print("\nInválido")
-                        voltar = input("Digite '0' para voltar:\n")
-
-                    continuar_listar = "n"
-            
-            # Alterar produtos 
-            elif escolha_adm == "3":
-                continuar_alterar = "s"
-
-                while(continuar_alterar == "s"):
-                    alterar()   # Entra na função de alterar produtos
-
-                    voltar = input("Digite '0' para voltar:\n")
-
-                    # Verifica a entrada do usuário
-                    while(voltar != "0"):
-                        print("\nInválido")
-                        voltar = input("Digite '0' para voltar:\n")
-
-                    continuar_alterar = "n"
-
-            # Apagar produtos 
-            elif escolha_adm == "4":
-                continuar_apagar = "s"
-
-                while(continuar_apagar == "s"):
-                    apagar()    # Entra na função de apagar produtos
-
-                    voltar = input("Digite '0' para voltar:\n")
-
-                    # Verifica a entrada do usuário
-                    while(voltar != "0"):
-                        print("\nInválido")
-                        voltar = input("Digite '0' para voltar:\n")
-
-                    continuar_apagar = "n"    
-
-            # Voltar ao menu principal
-            elif escolha_adm == "0":
-                continuar_adm = "n"
-
-    
-    # Menu do operador
-    elif escolha1 == "2":
-        continuar_op = "s"
-
-        while(continuar_op == "s"):
-            voltar = input("\nDeseja realizar um novo pedido? s/n \n").lower()
-            
-            # Verifica a entrada do usuário
-            while(voltar not in ["s","n"]):
-                print("\nInválido")
-                voltar = input("\nDeseja realizar um novo pedido? s/n \n").lower()
-                
-            if voltar == "s":                
-                pedido_op()     # Entra na função do pedido do operador se a entrada for 
-
-            elif voltar == "n":
-                continuar_op = "n"  # Se não encerra o loop do operador
-
-
-    # Encerra o programa
-    elif escolha1 == "0":
-        print("sair")
-        continuar_menu = "n"
