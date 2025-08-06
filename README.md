@@ -1,4 +1,7 @@
-# Lanchonete
+# Interface Gráfica - Lanchonete
+
+> :construction: Projeto em construção :construction:
+
 ## 📌 Sobre o projeto
 Este projeto foi desenvolvido durante o 1º Semestre de Engenharia de Software na **UMC - Universidade de Mogi das Cruzes** e tem como objetivo simular um sistema de gerenciamento de lanchonete, 
 permitindo que o usuário acesse a parte do Administrador e do Operador.
