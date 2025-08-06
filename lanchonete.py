@@ -4,7 +4,7 @@ cod = []             # Lista para armazenar os códigos dos produtos
 prod = []            # Lista para armazenar os nomes dos produtos
 val = []             # Lista para armazenar os valores dos produtos
 cod_alterar = []     # Lista auxiliar para armazenar os códigos válidos para alteração
-pedido = []          # Lista usada para armazenar pedidos (não utilizada nesse trecho)
+pedido = [cod, prod, val]          # Lista usada para armazenar pedidos (não utilizada nesse trecho)
 nomes = []           # Lista não utilizada nesse trecho
 temp = []            # Lista temporária para análise de códigos
 temp_cod = []        # Lista temporária para códigos faltantes
@@ -111,14 +111,8 @@ def listar():
     arquivo = open('produtos.txt', 'r', encoding='utf-8')
     itens = arquivo.read()
     arquivo.close()
-    
-    print("\n\n--- LISTA DE PRODUTOS ---\n")
-    print("CÓDIGO | PRODUTO | VALOR (R$)\n")
 
-    if len(itens) == 0:
-        print("Não há nenhum produto cadastrado.")
-    else:
-        print(itens)
+    return itens
 
 # Função para alterar um produto existente
 def alterar():

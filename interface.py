@@ -1,9 +1,7 @@
 # Importa CustomTkinter
 import customtkinter as ctk
 # Importa o menu do código da lanchonete
-from lanchonete import cadastro, listar, alterar, apagar, pedido_op, busca_cod
-
-
+from lanchonete import cadastro, listar, alterar, apagar, pedido_op, busca_cod, cod, prod, val, pedido
 
 # Funções
 def foco_janela(janela):
@@ -13,21 +11,21 @@ def foco_janela(janela):
     janela.after(100, lambda: janela.attributes('-topmost', False))  # Depois volta ao normal
 
 def abrir_adm():
-    adm = ctk.CTkToplevel(app)
+    adm = ctk.CTkToplevel(root)
     adm.title("Administrador")
     adm.geometry('300x300')
 
     foco_janela(adm)
 
     # Label
-    label_adm = ctk.CTkLabel(adm, text="ESCOLHA UMA OPÇÃO")
+    label_adm = ctk.CTkLabel(adm, text="ESCOLHA UMA OPÇÃO", font=fonte_titulo)
     label_adm.pack(pady=10)
 
     # Button
     cadastrar_p = ctk.CTkButton(adm, text="Cadastrar produto", command=abrir_cadastro)
     cadastrar_p.pack(pady=10)
 
-    listar_p = ctk.CTkButton(adm, text="Listar produtos", command=listar)
+    listar_p = ctk.CTkButton(adm, text="Listar produtos", command=abrir_listar)
     listar_p.pack(pady=10)
 
     alterar_p = ctk.CTkButton(adm, text="Alterar produto", command=alterar)
@@ -40,7 +38,7 @@ def abrir_cadastro():
     # Cria uma nova janela
     cad = ctk.CTkToplevel()
     cad.title("Cadastro de produtos")
-    cad.geometry('400x500')
+    cad.geometry('400x550')
 
     # Mantém a janela em foco
     foco_janela(cad)
@@ -49,10 +47,13 @@ def abrir_cadastro():
     codigo = busca_cod()
 
     # Label
-    label_cadastrar = ctk.CTkLabel(cad, text='CADASTRAR PRODUTO')
+    label_cadastrar = ctk.CTkLabel(cad, text='CADASTRAR PRODUTO', font=fonte_titulo)
     label_cadastrar.pack(pady=10)
 
-    label_cod = ctk.CTkLabel(cad, text=f'O código gerado para o novo produto é:\n\n{codigo}')
+    label_cod = ctk.CTkLabel(cad, text=f'O código gerado para o novo produto é:', font=('Arial', 14))
+    label_cod.pack(pady=10)
+
+    label_cod = ctk.CTkLabel(cad, text=codigo, font=('Arial', 28, "bold"))
     label_cod.pack(pady=30)
 
     label_nomeprod = ctk.CTkLabel(cad, text='Digite o nome do produto')
@@ -79,15 +80,18 @@ def abrir_cadastro():
 
         if produto and valor:
             cadastro(produto, valor)    # Registra o produto no arquivo
+
             resultado_cadastro.configure(text='Produto cadastrado com sucesso!', text_color='green')
             
             novo_codigo = busca_cod()
-            label_cod.configure(text=f'O código gerado para o novo produto é:\n\n{novo_codigo}')
+            label_cod.configure(text=novo_codigo, font=('Arial', 28, 'bold'))
 
             entry_produto.delete(0, 'end')
             entry_valor.delete(0, 'end')
 
-            
+            cod.append(novo_codigo)
+            prod.append(produto)
+            val.append(valor)
 
         else:
             resultado_cadastro.configure(text='Preencha todos os campos corretamente!', text_color='red')
@@ -96,9 +100,46 @@ def abrir_cadastro():
     button_confirma = ctk.CTkButton(cad, text='Confirmar Cadastro', command=confirmar_pedido)
     button_confirma.pack(pady=10)
 
+def abrir_listar():
+    lista = ctk.CTkToplevel()
+    lista.title("Lista de Produtos")
+    lista.geometry('400x500')
+
+    # Mantém a janela em foco
+    foco_janela(lista)
+
+    # Label
+    label_lista = ctk.CTkLabel(lista, text='LISTA DE PRODUTOS', font=fonte_titulo)
+    label_lista.pack(pady=10)
+
+    # Frames
+    frame1 = ctk.CTkFrame(lista, width=350, height=400)
+    frame1.pack()
+
+    frame2 = ctk.CTkFrame(lista, width=350, height=400)
+    frame2.pack()
+
+    # Label tabela
+    label_codigo = ctk.CTkLabel(frame1, text='CÓDIGO', font=fonte_titulo)
+    label_codigo.grid(column=0, row=0, padx=30, pady=5)
+
+    label_produto = ctk.CTkLabel(frame1, text='PRODUTO', font=fonte_titulo)
+    label_produto.grid(column=1, row=0, padx=30, pady=5)
+
+    label_preco = ctk.CTkLabel(frame1, text='VALOR', font=fonte_titulo)
+    label_preco.grid(column=2, row=0, padx=30, pady=5)
+
+    
+    # Listagem de produtos
+    ctk.CTkLabel(frame2, text=cod[0]).grid(column=0, row=0, padx=30, pady=5)
+    ctk.CTkLabel(frame2, text=prod[0]).grid(column=1, row=0, padx=30, pady=5)
+    ctk.CTkLabel(frame2, text=val[0]).grid(column=2, row=0, padx=30, pady=5)
+
+
+
 
 def abrir_op():
-    op = ctk.CTkToplevel(app)
+    op = ctk.CTkToplevel(root)
     op.title("Operador")
     op.geometry('300x200')
 
@@ -117,20 +158,23 @@ def abrir_op():
 ctk.set_appearance_mode('dark')
 
 # Criação da janela
-app = ctk.CTk()
-app.title('MENU')
-app.geometry('300x200')
+root = ctk.CTk()
+root.title('Menu')
+root.geometry('300x200')
+
+# Fonte
+fonte_titulo = ctk.CTkFont('Arial', 14, 'bold')
 
 
 # Label
-label_menu = ctk.CTkLabel(app, text='MENU')
+label_menu = ctk.CTkLabel(root, text='MENU', font=('Arial', 14, 'bold'))
 label_menu.pack(pady=10)
 
 # Button
-button_adm = ctk.CTkButton(app, text='Administrador', command=abrir_adm)
+button_adm = ctk.CTkButton(root, text='Administrador', command=abrir_adm)
 button_adm.pack(pady=10)
 
-button_op = ctk.CTkButton(app, text="Operador", command=abrir_op)
+button_op = ctk.CTkButton(root, text="Operador", command=abrir_op)
 button_op.pack(pady=10)
 
-app.mainloop()
+root.mainloop()
