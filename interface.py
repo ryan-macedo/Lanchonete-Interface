@@ -1,7 +1,7 @@
 # Importa CustomTkinter
 import customtkinter as ctk
 # Importa o menu do código da lanchonete
-from lanchonete import cadastro, listar, alterar, apagar, pedido_op, busca_cod, cod, prod, val, pedido
+from lanchonete import cadastro, alterar, apagar, pedido_op, busca_cod, cod, prod, val, atualizar
 
 # Funções
 def foco_janela(janela):
@@ -28,7 +28,7 @@ def abrir_adm():
     listar_p = ctk.CTkButton(adm, text="Listar produtos", command=abrir_listar)
     listar_p.pack(pady=10)
 
-    alterar_p = ctk.CTkButton(adm, text="Alterar produto", command=alterar)
+    alterar_p = ctk.CTkButton(adm, text="Alterar produto", command=abrir_alterar)
     alterar_p.pack(pady=10)
 
     apagar_p = ctk.CTkButton(adm, text="Apagar produto", command=apagar)
@@ -78,7 +78,13 @@ def abrir_cadastro():
         produto = entry_produto.get().strip()
         valor = entry_valor.get().strip()        
 
-        if produto and valor:
+        if not produto:
+            resultado_cadastro.configure(text='Preencha todos os campos corretamente!', text_color='red')
+
+        elif not valor:
+            resultado_cadastro.configure(text='Preencha todos os campos corretamente!', text_color='red')
+
+        else:
             cadastro(produto, valor)    # Registra o produto no arquivo
 
             resultado_cadastro.configure(text='Produto cadastrado com sucesso!', text_color='green')
@@ -93,14 +99,13 @@ def abrir_cadastro():
             prod.append(produto)
             val.append(valor)
 
-        else:
-            resultado_cadastro.configure(text='Preencha todos os campos corretamente!', text_color='red')
-
     # Button
     button_confirma = ctk.CTkButton(cad, text='Confirmar Cadastro', command=confirmar_pedido)
     button_confirma.pack(pady=10)
 
 def abrir_listar():
+    atualizar()
+
     lista = ctk.CTkToplevel()
     lista.title("Lista de Produtos")
     lista.geometry('400x500')
@@ -117,7 +122,7 @@ def abrir_listar():
     frame1.pack()
 
     frame2 = ctk.CTkFrame(lista, width=350, height=400)
-    frame2.pack()
+    frame2.pack(pady=10, padx=20)
 
     # Label tabela
     label_codigo = ctk.CTkLabel(frame1, text='CÓDIGO', font=fonte_titulo)
@@ -131,12 +136,79 @@ def abrir_listar():
 
     
     # Listagem de produtos
-    ctk.CTkLabel(frame2, text=cod[0]).grid(column=0, row=0, padx=30, pady=5)
-    ctk.CTkLabel(frame2, text=prod[0]).grid(column=1, row=0, padx=30, pady=5)
-    ctk.CTkLabel(frame2, text=val[0]).grid(column=2, row=0, padx=30, pady=5)
+    if len(cod) == 0:
+        ctk.CTkLabel(frame2, text='Não há produtos cadastrados.', font=('Arial', 18, 'underline')).pack()
 
+    else:
+        for i in range(len(cod)):
+            ctk.CTkLabel(frame2, text=cod[i], font=('Arial', 14, 'bold')).grid(column=0, row=i + 1, padx=50, pady=5)
+            ctk.CTkLabel(frame2, text=prod[i], font=('Arial', 14, 'underline')).grid(column=1, row=i + 1, padx=40, pady=5)
+            ctk.CTkLabel(frame2, text=f'R$ {val[i]}',font=('Arial', 14, 'bold')).grid(column=2, row=i + 1, padx=30, pady=5)
 
+def abrir_alterar():
+    atualizar()
 
+    altera = ctk.CTkToplevel()
+    altera.title("Alterar Produtos")
+    altera.geometry('400x500')
+
+    # Mantém a janela em foco
+    foco_janela(altera)
+
+    # Label
+    label_lista = ctk.CTkLabel(altera, text='ALTERAÇÃO DE PRODUTOS', font=fonte_titulo)
+    label_lista.pack(pady=10)
+
+    # Frames
+    frame1 = ctk.CTkFrame(altera, width=350, height=400)
+    frame1.pack()
+
+    frame2 = ctk.CTkFrame(altera, width=350, height=400)
+    frame2.pack(pady=10, padx=20)
+
+    # Label tabela
+    label_codigo = ctk.CTkLabel(frame1, text='CÓDIGO', font=fonte_titulo)
+    label_codigo.grid(column=0, row=0, padx=30, pady=5)
+
+    label_produto = ctk.CTkLabel(frame1, text='PRODUTO', font=fonte_titulo)
+    label_produto.grid(column=1, row=0, padx=30, pady=5)
+
+    label_preco = ctk.CTkLabel(frame1, text='VALOR', font=fonte_titulo)
+    label_preco.grid(column=2, row=0, padx=30, pady=5)
+
+    
+    # Listagem de produtos
+    if len(cod) == 0:
+        ctk.CTkLabel(frame2, text='Não há produtos cadastrados.', font=('Arial', 18, 'underline')).pack()
+
+    else:
+        for i in range(len(cod)):
+            ctk.CTkLabel(frame2, text=cod[i], font=('Arial', 14, 'bold')).grid(column=0, row=i + 1, padx=50, pady=5)
+            ctk.CTkLabel(frame2, text=prod[i], font=('Arial', 14, 'underline')).grid(column=1, row=i + 1, padx=40, pady=5)
+            ctk.CTkLabel(frame2, text=f'R$ {val[i]}',font=('Arial', 14, 'bold')).grid(column=2, row=i + 1, padx=30, pady=5)
+
+        # Label
+        label_alterar = ctk.CTkLabel(altera, text='Digite o código do produto que deseja alterar')
+        label_alterar.pack(pady=10)
+
+        # Entry
+        entry_alterar = ctk.CTkEntry(altera, placeholder_text='Código')
+        entry_alterar.pack(pady=10)
+        
+        # Resultado alteração
+        resultado_alteracao = ctk.CTkLabel(altera, text='')
+        resultado_alteracao.pack(pady=10)
+
+        def confirmar_alterar():
+            codigo = entry_alterar.get().strip()
+
+            if codigo not in cod:
+                resultado_alteracao.configure(altera, text='Digite um código válido!', text_color='red')
+
+        # Button
+        button_alterar = ctk.CTkButton(altera, text='Confirmar', command=confirmar_alterar)
+        button_alterar.pack(pady=10)
+        
 
 def abrir_op():
     op = ctk.CTkToplevel(root)
