@@ -115,49 +115,13 @@ def listar():
     return itens
 
 # Função para alterar um produto existente
-def alterar():
-    atualizar()  # Atualiza as listas com os dados do arquivo
-
-    if len(cod) == 0:
-        print("Não há produtos cadastrados para alterar.")
-        return
-
-    listar()  # Mostra os produtos disponíveis
-
-    print("\n--- ALTERAR PRODUTOS ---\n")
-
-    cod_alterar.clear()
-    for i in range(len(cod)):
-        cod_alterar.append(cod[i])
-
-    op_alterar = input("Escolha o código do produto que você deseja alterar:\n")
-
-    # Validação da escolha
-    while op_alterar not in cod_alterar:
-        op_alterar = input("Escolha um código válido:\n")
-
-    codigo_alterar = cod_alterar.index(op_alterar)
-
-    # Solicita nova descrição
-    print(f"\nA descrição atual do produto é: {prod[codigo_alterar]}\n")
-    nova_desc = input("Digite a nova descrição do produto:\n")
-    while nova_desc == "":
-        print("Insira uma descrição válida!\n")
-        nova_desc = input("Digite a nova descrição do produto:\n")
-
-    # Solicita novo valor
-    print(f"O valor atual do produto é: {val[codigo_alterar]}\n")
-    novo_valor = input("Digite o novo valor para o produto: R$\n")
-    while novo_valor == "" or novo_valor.isalpha():
-        print("Insira um valor válido\n")
-        novo_valor = input("Digite o novo valor para o produto: R$\n")
-
-    # Atualiza as listas com os novos dados
-    print(f"\nNova descrição do produto cujo o código é {cod_alterar[codigo_alterar]}: {nova_desc}")
-    print(f"Novo valor do produto: R${novo_valor}")
-
-    prod[codigo_alterar] = nova_desc
-    val[codigo_alterar] = novo_valor
+def alterar(codigo, nova_desc, novo_valor):
+    if codigo in cod:
+        i = cod.index(codigo)
+        prod[i] = nova_desc
+        val[i] = novo_valor
+        
+        atualizar()
 
     # Reescreve o arquivo com os dados atualizados
     arquivo = open("produtos.txt", 'w', encoding='utf-8')

@@ -203,11 +203,53 @@ def abrir_alterar():
             codigo = entry_alterar.get().strip()
 
             if codigo not in cod:
-                resultado_alteracao.configure(altera, text='Digite um código válido!', text_color='red')
+                resultado_alteracao.configure(text='Digite um código válido!', text_color='red')
+                return
+            
+            resultado_alteracao.configure(text='')
+
+            janela_alterar2 = ctk.CTkToplevel()
+            janela_alterar2.title("Alterar produtos")
+            janela_alterar2.geometry('300x400')
+
+            foco_janela(janela_alterar2)
+
+            ctk.CTkLabel(janela_alterar2, text=f'Digite a nova descrição do produto:\n{codigo}').pack(pady=10)
+
+            entry_nova_desc = ctk.CTkEntry(janela_alterar2, placeholder_text='Produto')
+            entry_nova_desc.pack(pady=10)
+            
+            ctk.CTkLabel(janela_alterar2, text='Digite o novo valor do produto').pack(pady=10)
+            entry_novo_valor = ctk.CTkEntry(janela_alterar2, placeholder_text='Valor')
+            entry_novo_valor.pack(pady=10)
+
+            resultado_alteracao2 = ctk.CTkLabel(janela_alterar2, text='')
+            resultado_alteracao2.pack(pady=10)
+
+            def aplicar_alteracao():
+                nova_desc = entry_nova_desc.get().strip()
+                novo_valor = entry_novo_valor.get().strip()
+
+                if not nova_desc or not novo_valor:
+                    resultado_alteracao2.configure(text='Preencha todos os campos corretamente!', text_color='red')
+                    return
+
+                if alterar(codigo, nova_desc, novo_valor):
+                    resultado_alteracao2.configure(text='Produto alterado com sucesso!', text_color='green')
+
+                    ctk.CTkLabel(janela_alterar2, text=f'Nova descrição do produto cujo código é {codigo}: {nova_desc}').pack(pady=10)
+                    ctk.CTkLabel(janela_alterar2, text=f'O valor atual do produto agora é: {novo_valor}').pack(pady=10)
+            
+            # Botão para confirmar a alteração do produto
+            ctk.CTkButton(janela_alterar2, text='Alterar produto', command=aplicar_alteracao).pack(pady=10)
+
+
+
 
         # Button
         button_alterar = ctk.CTkButton(altera, text='Confirmar', command=confirmar_alterar)
         button_alterar.pack(pady=10)
+        
         
 
 def abrir_op():
