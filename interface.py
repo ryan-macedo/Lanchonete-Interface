@@ -108,7 +108,7 @@ def abrir_listar():
 
     lista = ctk.CTkToplevel()
     lista.title("Lista de Produtos")
-    lista.geometry('400x500')
+    lista.geometry('400x300')
 
     # Mantém a janela em foco
     foco_janela(lista)
@@ -118,11 +118,8 @@ def abrir_listar():
     label_lista.pack(pady=10)
 
     # Frames
-    frame1 = ctk.CTkFrame(lista, width=350, height=400)
+    frame1 = ctk.CTkScrollableFrame(lista, width=350, height=200)
     frame1.pack()
-
-    frame2 = ctk.CTkFrame(lista, width=350, height=400)
-    frame2.pack(pady=10, padx=20)
 
     # Label tabela
     label_codigo = ctk.CTkLabel(frame1, text='CÓDIGO', font=fonte_titulo)
@@ -137,13 +134,13 @@ def abrir_listar():
     
     # Listagem de produtos
     if len(cod) == 0:
-        ctk.CTkLabel(frame2, text='Não há produtos cadastrados.', font=('Arial', 18, 'underline')).pack()
+        ctk.CTkLabel(frame1, text='Não há produtos cadastrados.', font=('Arial', 18, 'underline')).pack()
 
     else:
         for i in range(len(cod)):
-            ctk.CTkLabel(frame2, text=cod[i], font=('Arial', 14, 'bold')).grid(column=0, row=i + 1, padx=50, pady=5)
-            ctk.CTkLabel(frame2, text=prod[i], font=('Arial', 14, 'underline')).grid(column=1, row=i + 1, padx=40, pady=5)
-            ctk.CTkLabel(frame2, text=f'R$ {val[i]}',font=('Arial', 14, 'bold')).grid(column=2, row=i + 1, padx=30, pady=5)
+            ctk.CTkLabel(frame1, text=cod[i], font=('Arial', 14, 'bold')).grid(column=0, row=i + 1, padx=40, pady=5)
+            ctk.CTkLabel(frame1, text=prod[i], font=('Arial', 14, 'underline')).grid(column=1, row=i + 1, padx=40, pady=5)
+            ctk.CTkLabel(frame1, text=f'R$ {val[i]}',font=('Arial', 14, 'bold')).grid(column=2, row=i + 1, padx=40, pady=5)
 
 def abrir_alterar():
     atualizar()
@@ -160,11 +157,12 @@ def abrir_alterar():
     label_lista.pack(pady=10)
 
     # Frames
-    frame1 = ctk.CTkFrame(altera, width=350, height=400)
+    frame1 = ctk.CTkScrollableFrame(altera,
+        width=350,
+        height=100,
+        label_text='LISTA DE PRODUTOS'
+        )
     frame1.pack()
-
-    frame2 = ctk.CTkFrame(altera, width=350, height=400)
-    frame2.pack(pady=10, padx=20)
 
     # Label tabela
     label_codigo = ctk.CTkLabel(frame1, text='CÓDIGO', font=fonte_titulo)
@@ -179,13 +177,14 @@ def abrir_alterar():
     
     # Listagem de produtos
     if len(cod) == 0:
-        ctk.CTkLabel(frame2, text='Não há produtos cadastrados.', font=('Arial', 18, 'underline')).pack()
+        ctk.CTkLabel(frame1, text='Não há produtos cadastrados.', font=('Arial', 18, 'underline')).pack()
 
     else:
         for i in range(len(cod)):
-            ctk.CTkLabel(frame2, text=cod[i], font=('Arial', 14, 'bold')).grid(column=0, row=i + 1, padx=50, pady=5)
-            ctk.CTkLabel(frame2, text=prod[i], font=('Arial', 14, 'underline')).grid(column=1, row=i + 1, padx=40, pady=5)
-            ctk.CTkLabel(frame2, text=f'R$ {val[i]}',font=('Arial', 14, 'bold')).grid(column=2, row=i + 1, padx=30, pady=5)
+            ctk.CTkLabel(frame1, text=cod[i], font=('Arial', 14, 'bold')).grid(column=0, row=i + 1, padx=40, pady=5)
+            ctk.CTkLabel(frame1, text=prod[i], font=('Arial', 14, 'underline')).grid(column=1, row=i + 1, padx=40, pady=5)
+            ctk.CTkLabel(frame1, text=f'R$ {val[i]}',font=('Arial', 14, 'bold')).grid(column=2, row=i + 1, padx=40, pady=5)
+
 
         # Label
         label_alterar = ctk.CTkLabel(altera, text='Digite o código do produto que deseja alterar')
@@ -210,41 +209,71 @@ def abrir_alterar():
 
             janela_alterar2 = ctk.CTkToplevel()
             janela_alterar2.title("Alterar produtos")
-            janela_alterar2.geometry('300x400')
+            janela_alterar2.geometry('400x400')
 
             foco_janela(janela_alterar2)
 
-            ctk.CTkLabel(janela_alterar2, text=f'Digite a nova descrição do produto:\n{codigo}').pack(pady=10)
-
-            entry_nova_desc = ctk.CTkEntry(janela_alterar2, placeholder_text='Produto')
-            entry_nova_desc.pack(pady=10)
+            # Scrollable Frame
+            scroll_janela2 = ctk.CTkScrollableFrame(janela_alterar2,
+                 orientation='vertical',
+                 width=300,
+                 height=400,
+                 label_text='ALTERAÇÃO DE PRODUTOS',
+                 corner_radius=10
+                 )
             
-            ctk.CTkLabel(janela_alterar2, text='Digite o novo valor do produto').pack(pady=10)
-            entry_novo_valor = ctk.CTkEntry(janela_alterar2, placeholder_text='Valor')
-            entry_novo_valor.pack(pady=10)
+            scroll_janela2.pack(pady=40)
 
-            resultado_alteracao2 = ctk.CTkLabel(janela_alterar2, text='')
-            resultado_alteracao2.pack(pady=10)
+            ctk.CTkLabel(scroll_janela2, text=f'Digite a nova descrição do produto:\n{codigo}').grid(row=0, column=0, pady=5)
+
+            entry_nova_desc = ctk.CTkEntry(scroll_janela2, placeholder_text='Produto')
+            entry_nova_desc.grid(row=1, column=0, pady=10)
+
+            ctk.CTkLabel(scroll_janela2, text='Digite o novo valor do produto').grid(row=2, column=0, pady=5)
+            entry_novo_valor = ctk.CTkEntry(scroll_janela2, placeholder_text='Valor')
+            entry_novo_valor.grid(row=3, column=0, pady=5)
+
+            resultado_alteracao1 = ctk.CTkLabel(scroll_janela2, text='')
+            resultado_alteracao1.grid(row=4, column=0, pady=5)
+
+            label_nova_desc = ctk.CTkLabel(scroll_janela2, text='')
+            label_nova_desc.grid(row=6, column=0, pady=3)
+
+            resultado_nova_desc = ctk.CTkLabel(scroll_janela2, text='')
+            resultado_nova_desc.grid(row=7, column=0, pady=5)
+
+            label_novo_valor = ctk.CTkLabel(scroll_janela2, text='')
+            label_novo_valor.grid(row=8, column=0, pady=3)
+
+            resultado_novo_valor = ctk.CTkLabel(scroll_janela2, text='')
+            resultado_novo_valor.grid(row=9, column=0, pady=5)
+
+            scroll_janela2.grid_columnconfigure(0, weight=1)
 
             def aplicar_alteracao():
                 nova_desc = entry_nova_desc.get().strip()
                 novo_valor = entry_novo_valor.get().strip()
 
+
+
                 if not nova_desc or not novo_valor:
-                    resultado_alteracao2.configure(text='Preencha todos os campos corretamente!', text_color='red')
+                    resultado_alteracao1.configure(text='Preencha todos os campos corretamente!', text_color='red')
                     return
 
-                if alterar(codigo, nova_desc, novo_valor):
-                    resultado_alteracao2.configure(text='Produto alterado com sucesso!', text_color='green')
+                else:
+                    alterar(codigo, nova_desc, novo_valor)
 
-                    ctk.CTkLabel(janela_alterar2, text=f'Nova descrição do produto cujo código é {codigo}: {nova_desc}').pack(pady=10)
-                    ctk.CTkLabel(janela_alterar2, text=f'O valor atual do produto agora é: {novo_valor}').pack(pady=10)
-            
+                resultado_alteracao1.configure(text='Produto alterado com sucesso!', text_color='green')
+
+                label_nova_desc.configure(text=f'Nova descrição do produto cujo código é {codigo}:')
+                resultado_nova_desc.configure(text=nova_desc, text_color='yellow')
+
+                label_novo_valor.configure(text=f'O valor atual do produto é:')
+                resultado_novo_valor.configure(text=novo_valor, text_color='yellow')
+                
+        
             # Botão para confirmar a alteração do produto
-            ctk.CTkButton(janela_alterar2, text='Alterar produto', command=aplicar_alteracao).pack(pady=10)
-
-
-
+            ctk.CTkButton(scroll_janela2, text='Alterar produto', command=aplicar_alteracao).grid(row=5, column=0, pady=10)
 
         # Button
         button_alterar = ctk.CTkButton(altera, text='Confirmar', command=confirmar_alterar)

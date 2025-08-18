@@ -120,14 +120,14 @@ def alterar(codigo, nova_desc, novo_valor):
         i = cod.index(codigo)
         prod[i] = nova_desc
         val[i] = novo_valor
-        
-        atualizar()
 
     # Reescreve o arquivo com os dados atualizados
     arquivo = open("produtos.txt", 'w', encoding='utf-8')
     for i in range(len(cod)):
         arquivo.write(cod[i] + " | " + prod[i] + " | " + val[i] + "\n")
     arquivo.close()
+
+    atualizar()
 
 # Apagar prod
 def apagar():
