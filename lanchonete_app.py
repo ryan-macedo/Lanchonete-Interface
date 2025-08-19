@@ -1,3 +1,6 @@
+import customtkinter as ctk
+
+
 # Listas globais
 continuar_menu = "s"
 cod = []             # Lista para armazenar os códigos dos produtos
@@ -53,7 +56,7 @@ def busca_cod():
         # Extração dos códigos existentes
         for i in range(len(dados)):
             dados[i] = dados[i].strip('\n')
-            dados[i] = dados[i].split('|')
+            dados[i] = dados[i].split(';')
             temp.append(dados[i][0])
 
         # Conversão para inteiros e verificação de códigos faltantes
@@ -88,7 +91,7 @@ def atualizar():
     # Processa cada linha do arquivo e separa os dados em listas
     for linha in linhas:
         if linha.strip() != "":
-            partes = linha.strip().split(" | ")
+            partes = linha.strip().split(";")
             if len(partes) == 3:
                 cod.append(partes[0])
                 prod.append(partes[1])
@@ -101,18 +104,37 @@ def cadastro(produto, valor):
     arquivo = open('produtos.txt', 'a+', encoding='utf-8')
 
     # Grava o novo produto no arquivo
-    arquivo.write(f"{codigo} | {produto} | {valor}\n")
+    arquivo.write(f"{codigo};{produto};{valor}\n")
     arquivo.close()
 
     return codigo
 
 # Função para listar os produtos cadastrados
-def listar():
-    arquivo = open('produtos.txt', 'r', encoding='utf-8')
-    itens = arquivo.read()
-    arquivo.close()
+def listar(frame_destino):
+    for widget in frame_destino.winfo_children():
+        widget.destroy()
 
-    return itens
+    # Label tabela
+    label_codigo = ctk.CTkLabel(frame_destino, text='CÓDIGO', font=('Arial', 14, 'bold'))
+    label_codigo.grid(column=0, row=0, padx=30, pady=5)
+
+    label_produto = ctk.CTkLabel(frame_destino, text='PRODUTO', font=('Arial', 14, 'bold'))
+    label_produto.grid(column=1, row=0, padx=30, pady=5)
+
+    label_preco = ctk.CTkLabel(frame_destino, text='VALOR', font=('Arial', 14, 'bold'))
+    label_preco.grid(column=2, row=0, padx=30, pady=5)
+
+    # Listagem de produtos
+    if len(cod) == 0:
+        ctk.CTkLabel(frame_destino, text='Não há produtos cadastrados.', text_color="#FFD700", font=('Arial', 14, 'underline')).grid(
+            row=3, column=0, columnspan=3, pady=5
+            )
+
+    else:
+        for i in range(len(cod)):
+            ctk.CTkLabel(frame_destino, text=cod[i], font=('Arial', 14, 'bold')).grid(column=0, row=i + 1, pady=5, sticky='we')
+            ctk.CTkLabel(frame_destino, text=prod[i], font=('Arial', 14, 'underline')).grid(column=1, row=i + 1, pady=5, sticky='we')
+            ctk.CTkLabel(frame_destino, text=f'R$ {val[i]}',font=('Arial', 14, 'bold')).grid(column=2, row=i + 1, pady=5, sticky='we')
 
 # Função para alterar um produto existente
 def alterar(codigo, nova_desc, novo_valor):
@@ -124,34 +146,20 @@ def alterar(codigo, nova_desc, novo_valor):
     # Reescreve o arquivo com os dados atualizados
     arquivo = open("produtos.txt", 'w', encoding='utf-8')
     for i in range(len(cod)):
-        arquivo.write(cod[i] + " | " + prod[i] + " | " + val[i] + "\n")
+        arquivo.write(cod[i] + ";" + prod[i] + ";" + val[i] + "\n")
     arquivo.close()
 
     atualizar()
 
 # Apagar prod
-def apagar():
+def apagar(entry_codigo):
     
     # Atualiza os dados
     atualizar()
-    print("--- APAGAR PRODUTO ---\n")
-
-    # Verifica se há produtos cadastrados
-    if len(cod) == 0:
-        print("Não há produtos cadastrados.")
-
-        return
-
-    # Mostra os produtos cadastrados
-    for i in range(len(cod)):
-        print(f"{cod[i]} | {prod[i]} | {val[i]}\n")
-
-    # Solicita o código do produto que o usuário deseja remover
-    remover = input("\nDigite o código do produto que deseja remover:\n")
 
     # Verifica se o produto está na lista de código
-    if remover in cod:
-        i = cod.index(remover)  # Encontra o índice do produto
+    if entry_codigo in cod:
+        i = cod.index(entry_codigo)  # Encontra o índice do produto
 
         # Remove o código, produto e valor das listas
         cod.pop(i)
@@ -161,12 +169,9 @@ def apagar():
         # Atualiza o arquivo: "produtos.txt"
         arquivo = open("produtos.txt", 'w', encoding="utf-8")
         for j in range(len(cod)):
-            arquivo.write(f"{cod[j]} | {prod[j]} | {val[j]}\n")
+            arquivo.write(f"{cod[j]};{prod[j]};{val[j]}\n")
 
-        print("\nProduto removido com sucesso\n")
-    else:
-        print("\nCódigo não encontrado\n")
-
+        atualizar()
 
 # Pedido operador
 def pedido_op():
