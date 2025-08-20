@@ -1,9 +1,0 @@
-103;asdf;123
-104;esfiha;7
-105;hot dog;10
-106;chocolate;3
-107;milkshake;6
-108;picolé;5
-109;x-tudo;30
-110;refrigerante;7
-100;uhb;654

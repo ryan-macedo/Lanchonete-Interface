@@ -114,6 +114,8 @@ def listar(frame_destino):
     for widget in frame_destino.winfo_children():
         widget.destroy()
 
+    atualizar()
+
     # Label tabela
     label_codigo = ctk.CTkLabel(frame_destino, text='CÓDIGO', font=('Arial', 14, 'bold'))
     label_codigo.grid(column=0, row=0, padx=30, pady=5)
@@ -136,6 +138,8 @@ def listar(frame_destino):
             ctk.CTkLabel(frame_destino, text=prod[i], font=('Arial', 14, 'underline')).grid(column=1, row=i + 1, pady=5, sticky='we')
             ctk.CTkLabel(frame_destino, text=f'R$ {val[i]}',font=('Arial', 14, 'bold')).grid(column=2, row=i + 1, pady=5, sticky='we')
 
+    
+
 # Função para alterar um produto existente
 def alterar(codigo, nova_desc, novo_valor):
     if codigo in cod:
@@ -153,24 +157,18 @@ def alterar(codigo, nova_desc, novo_valor):
 
 # Apagar prod
 def apagar(entry_codigo):
-    
-    # Atualiza os dados
-    atualizar()
-
-    # Verifica se o produto está na lista de código
     if entry_codigo in cod:
-        i = cod.index(entry_codigo)  # Encontra o índice do produto
-
-        # Remove o código, produto e valor das listas
+        i = cod.index(entry_codigo)
         cod.pop(i)
         prod.pop(i)
         val.pop(i)
 
-        # Atualiza o arquivo: "produtos.txt"
-        arquivo = open("produtos.txt", 'w', encoding="utf-8")
-        for j in range(len(cod)):
-            arquivo.write(f"{cod[j]};{prod[j]};{val[j]}\n")
+        # Reescreve o arquivo já sem o item e garante flush/close
+        with open("produtos.txt", "w", encoding="utf-8") as f:
+            for j in range(len(cod)):
+                f.write(f"{cod[j]};{prod[j]};{val[j]}\n")
 
+        # Agora sim, recarrega a lista a partir do arquivo já salvo
         atualizar()
 
 # Pedido operador

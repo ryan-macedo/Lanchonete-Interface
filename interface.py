@@ -38,42 +38,42 @@ def abrir_cadastro():
     atualizar()
 
     # Cria uma nova janela
-    cad = ctk.CTkToplevel()
-    cad.title("Cadastro de produtos")
-    cad.geometry('400x550')
+    janela_cad = ctk.CTkToplevel()
+    janela_cad.title("Cadastro de produtos")
+    janela_cad.geometry('400x550')
 
     # Mantém a janela em foco
-    foco_janela(cad)
+    foco_janela(janela_cad)
 
     # Chama a função busca_cod()
     codigo = busca_cod()
 
     # Label
-    label_cadastrar = ctk.CTkLabel(cad, text='CADASTRAR PRODUTO', font=('Arial', 14, 'bold'))
+    label_cadastrar = ctk.CTkLabel(janela_cad, text='CADASTRAR PRODUTO', font=('Arial', 14, 'bold'))
     label_cadastrar.pack(pady=10)
 
-    label_cod = ctk.CTkLabel(cad, text=f'O código gerado para o novo produto é:', font=('Arial', 14))
+    label_cod = ctk.CTkLabel(janela_cad, text=f'O código gerado para o novo produto é:', font=('Arial', 14))
     label_cod.pack(pady=10)
 
-    label_cod = ctk.CTkLabel(cad, text=codigo, font=('Arial', 28, "bold"))
+    label_cod = ctk.CTkLabel(janela_cad, text=codigo, font=('Arial', 28, "bold"))
     label_cod.pack(pady=30)
 
-    label_nomeprod = ctk.CTkLabel(cad, text='Digite o nome do produto')
+    label_nomeprod = ctk.CTkLabel(janela_cad, text='Digite o nome do produto')
     label_nomeprod.pack(pady=10)
 
     # Entry
-    entry_produto = ctk.CTkEntry(cad, placeholder_text='Produto')
+    entry_produto = ctk.CTkEntry(janela_cad, placeholder_text='Produto')
     entry_produto.pack(pady=10)
 
     # Label
-    label_valorprod = ctk.CTkLabel(cad, text='Digite o valor do produto (R$)')
+    label_valorprod = ctk.CTkLabel(janela_cad, text='Digite o valor do produto (R$)')
     label_valorprod.pack(pady=10)
 
     # Entry
-    entry_valor = ctk.CTkEntry(cad, placeholder_text='Valor')
+    entry_valor = ctk.CTkEntry(janela_cad, placeholder_text='Valor')
     entry_valor.pack(pady=10)
 
-    resultado_cadastro = ctk.CTkLabel(cad, text='')
+    resultado_cadastro = ctk.CTkLabel(janela_cad, text='')
     resultado_cadastro.pack(pady=10)
 
     def confirmar_pedido():
@@ -105,25 +105,25 @@ def abrir_cadastro():
             val.append(valor)
 
     # Button
-    button_confirma = ctk.CTkButton(cad, text='Confirmar Cadastro', command=confirmar_pedido)
+    button_confirma = ctk.CTkButton(janela_cad, text='Confirmar Cadastro', command=confirmar_pedido)
     button_confirma.pack(pady=10)
 
 def abrir_listar():
     atualizar()
 
-    lista = ctk.CTkToplevel()
-    lista.title("Lista de Produtos")
-    lista.geometry('400x300')
+    janela_lista = ctk.CTkToplevel()
+    janela_lista.title("Lista de Produtos")
+    janela_lista.geometry('400x300')
 
     # Mantém a janela em foco
-    foco_janela(lista)
+    foco_janela(janela_lista)
 
     # Label
-    label_lista = ctk.CTkLabel(lista, text='LISTA DE PRODUTOS', font=('Arial', 14, 'bold'))
+    label_lista = ctk.CTkLabel(janela_lista, text='LISTA DE PRODUTOS', font=('Arial', 14, 'bold'))
     label_lista.pack(pady=10)
 
     # Frame tabela
-    frame_listar = ctk.CTkScrollableFrame(lista, width=350, height=200)
+    frame_listar = ctk.CTkScrollableFrame(janela_lista, width=350, height=200)
     frame_listar.pack()
 
     # Listagem de produtos
@@ -132,18 +132,18 @@ def abrir_listar():
 def abrir_alterar():
     atualizar()
 
-    altera = ctk.CTkToplevel()
-    altera.title("Alterar Produtos")
-    altera.geometry('400x500')
+    janela_alterar = ctk.CTkToplevel()
+    janela_alterar.title("Alterar Produtos")
+    janela_alterar.geometry('400x500')
 
     # Mantém a janela em foco
-    foco_janela(altera)
+    foco_janela(janela_alterar)
 
     # Label
-    ctk.CTkLabel(altera, text='ALTERAÇÃO DE PRODUTOS', font=('Arial', 14, 'bold')).pack(pady=10)
+    ctk.CTkLabel(janela_alterar, text='ALTERAÇÃO DE PRODUTOS', font=('Arial', 14, 'bold')).pack(pady=10)
 
     # Frames
-    frame_alterar = ctk.CTkScrollableFrame(altera,
+    frame_alterar = ctk.CTkScrollableFrame(janela_alterar,
         width=350,
         height=100,
         label_text='LISTA DE PRODUTOS'
@@ -154,15 +154,15 @@ def abrir_alterar():
     listar(frame_alterar)
 
     # Label
-    label_alterar = ctk.CTkLabel(altera, text='Digite o código do produto que deseja alterar')
+    label_alterar = ctk.CTkLabel(janela_alterar, text='Digite o código do produto que deseja alterar')
     label_alterar.pack(pady=10)
 
     # Entry
-    entry_alterar = ctk.CTkEntry(altera, placeholder_text='Código')
+    entry_alterar = ctk.CTkEntry(janela_alterar, placeholder_text='Código')
     entry_alterar.pack(pady=10)
     
     # Resultado alteração
-    resultado_alteracao = ctk.CTkLabel(altera, text='')
+    resultado_alteracao = ctk.CTkLabel(janela_alterar, text='')
     resultado_alteracao.pack(pady=10)
 
     def confirmar_alterar():
@@ -223,8 +223,6 @@ def abrir_alterar():
             nova_desc = entry_nova_desc.get().strip()
             novo_valor = entry_novo_valor.get().strip()
 
-
-
             if not nova_desc or not novo_valor:
                 resultado_alteracao1.configure(text='Preencha todos os campos corretamente!', text_color='red')
                 return
@@ -246,23 +244,23 @@ def abrir_alterar():
         ctk.CTkButton(janela_alterar2, text='Alterar produto', command=aplicar_alteracao).grid(row=5, column=0, pady=10)
 
     # Button
-    button_alterar = ctk.CTkButton(altera, text='Confirmar', command=confirmar_alterar)
+    button_alterar = ctk.CTkButton(janela_alterar, text='Confirmar', command=confirmar_alterar)
     button_alterar.pack(pady=10)
     
 def abrir_apagar():
     atualizar()
 
     # Criação da janela
-    apaga = ctk.CTkToplevel()
-    apaga.title("Apagar Produtos")
-    apaga.geometry('400x500')
+    janela_apagar = ctk.CTkToplevel()
+    janela_apagar.title("Apagar Produtos")
+    janela_apagar.geometry('400x500')
 
-    foco_janela(apaga)
+    foco_janela(janela_apagar)
 
-    ctk.CTkLabel(apaga, text='APAGAR PRODUTOS', font=('Arial', 14, 'bold')).pack(pady=10)
+    ctk.CTkLabel(janela_apagar, text='APAGAR PRODUTOS', font=('Arial', 14, 'bold')).pack(pady=10)
 
     # Frames
-    frame_apagar = ctk.CTkScrollableFrame(apaga,
+    frame_apagar = ctk.CTkScrollableFrame(janela_apagar,
         width=350,
         height=100,
         label_text='LISTA DE PRODUTOS'
@@ -272,12 +270,12 @@ def abrir_apagar():
     
     listar(frame_apagar)
 
-    ctk.CTkLabel(apaga, text='Digite o código do produto que deseja remover:').pack(pady=10)
+    ctk.CTkLabel(janela_apagar, text='Digite o código do produto que deseja remover:').pack(pady=10)
 
-    entry_apagar = ctk.CTkEntry(apaga, placeholder_text='Código')
+    entry_apagar = ctk.CTkEntry(janela_apagar, placeholder_text='Código')
     entry_apagar.pack(pady=10)
 
-    resultado_alteracao = ctk.CTkLabel(apaga, text='')
+    resultado_alteracao = ctk.CTkLabel(janela_apagar, text='')
     resultado_alteracao.pack(pady=10)
 
     def confirmar_apagar():
@@ -293,29 +291,57 @@ def abrir_apagar():
             listar(frame_apagar)
 
             resultado_alteracao.configure(text='Produto apagado com sucesso!', text_color='#90EE90')
-
-
     
-    button_apagar = ctk.CTkButton(apaga, text='Apagar Produto', command=confirmar_apagar)
+    button_apagar = ctk.CTkButton(janela_apagar, text='Apagar Produto', command=confirmar_apagar)
     button_apagar.pack(pady=10)
 
 
-def abrir_op():
-    op = ctk.CTkToplevel(root)
-    op.title("Operador")
-    op.geometry('300x200')
+def abrir_operador():
+    janela_operador = ctk.CTkToplevel(root)
+    janela_operador.title("Operador")
+    janela_operador.geometry('300x200')
+
+    # Foco na janela
+    foco_janela(janela_operador)
 
     # Label
-    label_op = ctk.CTkLabel(op, text='Deseja fazer um novo pedido?')
+    label_op = ctk.CTkLabel(janela_operador, text='Deseja fazer um novo pedido?')
     label_op.pack(pady=10)
 
+
+    def escolha_sim():
+        janela_pedido = ctk.CTkToplevel()
+        janela_pedido.title("Pedido")
+        janela_pedido.geometry('900x300')
+
+        # Foco janela
+        foco_janela(janela_pedido)
+
+        # Frame
+        frame_pedido = ctk.CTkScrollableFrame(janela_pedido,
+            width=350,
+            height=100,
+            label_text='MENU'
+            )
+        frame_pedido.grid(row=1, column=0, pady=10, padx=30)
+
+        listar(frame_pedido)
+
+        # Label
+        ctk.CTkLabel(janela_pedido, text='Nome do cliente:', font=('Arial', 14)).grid(row=0, column=1, pady=20, padx=30)
+        ctk.CTkEntry(janela_pedido, placeholder_text='Cliente').grid(row=0, column=2, pady=20, padx=50)
+
+
     # Button
-    button_op = ctk.CTkButton(op, text='Sim')
+    button_op = ctk.CTkButton(janela_operador, text='Sim', command=escolha_sim)
     button_op.pack(pady=10)
 
-    button_op = ctk.CTkButton(op, text='Não')
+    button_op = ctk.CTkButton(janela_operador, text='Não')
     button_op.pack(pady=10)
 
+
+
+# Janela principal (root)
 # Aparência da janela
 ctk.set_appearance_mode('dark')
 
@@ -332,7 +358,7 @@ label_menu.pack(pady=10)
 button_adm = ctk.CTkButton(root, text='Administrador', command=abrir_adm)
 button_adm.pack(pady=10)
 
-button_op = ctk.CTkButton(root, text="Operador", command=abrir_op)
+button_op = ctk.CTkButton(root, text="Operador", command=abrir_operador)
 button_op.pack(pady=10)
 
 root.mainloop()
