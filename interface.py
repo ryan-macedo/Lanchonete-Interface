@@ -312,24 +312,38 @@ def abrir_operador():
     def escolha_sim():
         janela_pedido = ctk.CTkToplevel()
         janela_pedido.title("Pedido")
-        janela_pedido.geometry('900x300')
+        janela_pedido.geometry("740x400")
 
         # Foco janela
         foco_janela(janela_pedido)
 
-        # Frame
-        frame_pedido = ctk.CTkScrollableFrame(janela_pedido,
+        # Frame da tabela de produtos (lado esquerdo)
+        frame_lista = ctk.CTkScrollableFrame(janela_pedido,
             width=350,
-            height=100,
+            height=250,
             label_text='MENU'
-            )
-        frame_pedido.grid(row=1, column=0, pady=10, padx=30)
+        )
+        frame_lista.grid(row=0, column=0, pady=20, padx=10, sticky="nsew")
 
-        listar(frame_pedido)
+        listar(frame_lista)
 
-        # Label
-        ctk.CTkLabel(janela_pedido, text='Nome do cliente:', font=('Arial', 14)).grid(row=0, column=1, pady=20, padx=30)
-        ctk.CTkEntry(janela_pedido, placeholder_text='Cliente').grid(row=0, column=2, pady=20, padx=50)
+        # Frame do cliente (lado direito)
+        frame_cliente = ctk.CTkFrame(janela_pedido)
+        frame_cliente.grid(row=0, column=1, pady=20, padx=5, sticky="n")
+
+        ctk.CTkLabel(frame_cliente, text='Nome do cliente:', font=('Arial', 14)).grid(row=0, column=1, padx=5, pady=5, sticky='w')
+
+        entry_cliente = ctk.CTkEntry(frame_cliente, placeholder_text='Cliente')
+        entry_cliente.grid(row=0, column=2, padx=20, pady=30, sticky='w')
+
+        ctk.CTkLabel(frame_cliente, text='PEDIDO:', font=('Arial', 14, 'bold')).grid(row=4, column=2, padx=5, pady=15, sticky='w')
+
+        ctk.CTkLabel(frame_cliente, text='Código do produto:', font=('Arial', 14)).grid(row=5, column=1, padx=5, pady=5, sticky='w')
+
+        entry_cliente = ctk.CTkEntry(frame_cliente, placeholder_text='Código')
+        entry_cliente.grid(row=5, column=2, padx=20, pady=5, sticky='w')
+
+
 
 
     # Button
