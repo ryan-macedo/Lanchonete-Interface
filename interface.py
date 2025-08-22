@@ -105,7 +105,10 @@ def abrir_cadastro():
             val.append(valor)
 
     # Button
-    button_confirma = ctk.CTkButton(janela_cad, text='Confirmar Cadastro', command=confirmar_pedido)
+    button_confirma = ctk.CTkButton(janela_cad, text='Confirmar Cadastro', command=confirmar_pedido,
+        fg_color="#4CAF50",
+        hover_color="#337736",
+        text_color='white')
     button_confirma.pack(pady=10)
 
 def abrir_listar():
@@ -241,7 +244,10 @@ def abrir_alterar():
             
     
         # Botão para confirmar a alteração do produto
-        ctk.CTkButton(janela_alterar2, text='Alterar produto', command=aplicar_alteracao).grid(row=5, column=0, pady=10)
+        ctk.CTkButton(janela_alterar2, text='Alterar produto', command=aplicar_alteracao,
+            fg_color="#2196F3",
+            hover_color="#1976D2",
+            text_color='white').grid(row=5, column=0, pady=10,)
 
     # Button
     button_alterar = ctk.CTkButton(janela_alterar, text='Confirmar', command=confirmar_alterar)
@@ -292,7 +298,10 @@ def abrir_apagar():
 
             resultado_alteracao.configure(text='Produto apagado com sucesso!', text_color='#90EE90')
     
-    button_apagar = ctk.CTkButton(janela_apagar, text='Apagar Produto', command=confirmar_apagar)
+    button_apagar = ctk.CTkButton(janela_apagar, text='Apagar Produto', command=confirmar_apagar,
+        fg_color="#F44336",
+        hover_color="#D32F2F",
+        text_color='white')
     button_apagar.pack(pady=10)
 
 
@@ -312,10 +321,14 @@ def abrir_operador():
     def escolha_sim():
         janela_pedido = ctk.CTkToplevel()
         janela_pedido.title("Pedido")
-        janela_pedido.geometry("740x400")
+        janela_pedido.geometry("740x470")
 
         # Foco janela
         foco_janela(janela_pedido)
+
+        janela_pedido.grid_columnconfigure(0, weight=1)
+        janela_pedido.grid_columnconfigure(1, weight=1)
+        janela_pedido.grid_rowconfigure(0, weight=1)
 
         # Frame da tabela de produtos (lado esquerdo)
         frame_lista = ctk.CTkScrollableFrame(janela_pedido,
@@ -328,22 +341,60 @@ def abrir_operador():
         listar(frame_lista)
 
         # Frame do cliente (lado direito)
-        frame_cliente = ctk.CTkFrame(janela_pedido)
-        frame_cliente.grid(row=0, column=1, pady=20, padx=5, sticky="n")
-
-        ctk.CTkLabel(frame_cliente, text='Nome do cliente:', font=('Arial', 14)).grid(row=0, column=1, padx=5, pady=5, sticky='w')
-
-        entry_cliente = ctk.CTkEntry(frame_cliente, placeholder_text='Cliente')
-        entry_cliente.grid(row=0, column=2, padx=20, pady=30, sticky='w')
-
-        ctk.CTkLabel(frame_cliente, text='PEDIDO:', font=('Arial', 14, 'bold')).grid(row=4, column=2, padx=5, pady=15, sticky='w')
-
-        ctk.CTkLabel(frame_cliente, text='Código do produto:', font=('Arial', 14)).grid(row=5, column=1, padx=5, pady=5, sticky='w')
-
-        entry_cliente = ctk.CTkEntry(frame_cliente, placeholder_text='Código')
-        entry_cliente.grid(row=5, column=2, padx=20, pady=5, sticky='w')
+        frame_pedido = ctk.CTkFrame(janela_pedido)
+        frame_pedido.grid(row=0, column=1, pady=20, padx=10, sticky="nsew")
 
 
+        ctk.CTkLabel(frame_pedido, text='CLIENTE:', font=('Arial', 14, 'bold')).grid(row=0, column=2, padx=5, pady=10, sticky='w')
+
+        ctk.CTkLabel(frame_pedido, text='Nome do cliente:', font=('Arial', 14)).grid(row=1, column=1, padx=5, pady=5, sticky='we')
+
+        entry_cliente = ctk.CTkEntry(frame_pedido, placeholder_text='Cliente')
+        entry_cliente.grid(row=1, column=2, padx=20, pady=5, sticky='w')
+
+        ctk.CTkLabel(frame_pedido, text='PEDIDO:', font=('Arial', 14, 'bold')).grid(row=2, column=2, padx=5, pady=30, sticky='w')
+
+        ctk.CTkLabel(frame_pedido, text='Código do produto:', font=('Arial', 14)).grid(row=3, column=1, padx=5, pady=5, sticky='we')
+
+        entry_codigo = ctk.CTkEntry(frame_pedido, placeholder_text='Código')
+        entry_codigo.grid(row=3, column=2, padx=20, pady=5, sticky='w')
+
+        ctk.CTkLabel(frame_pedido, text='Quantidade:', font=('Arial', 14)).grid(row=4, column=1, padx=5, pady=5, sticky='we')
+
+        entry_qtd = ctk.CTkEntry(frame_pedido, placeholder_text='Quantidade')
+        entry_qtd.grid(row=4, column=2, padx=20, pady=5, sticky='w')
+
+        resultado_gravar_pedido = ctk.CTkLabel(frame_pedido, text='')
+        resultado_gravar_pedido.grid(row=5, column=1, columnspan=2, padx=5, pady=30)
+
+        def gravar_pedido():
+            cliente = entry_cliente.get().strip().upper()
+            codigo = entry_codigo.get().strip()
+            quantidade = entry_qtd.get().strip()
+
+            if not cliente or not codigo or not quantidade:
+                resultado_gravar_pedido.configure(text='Preencha todos os campos corretamente!', text_color='red')
+            
+            elif codigo not in cod:
+                resultado_gravar_pedido.configure(text='Código não encontrado!', text_color='red')
+
+            else:
+                try:
+                    quantidade_int = int(quantidade)
+                    resultado_gravar_pedido.configure(text='Produto adicionado ao carrinho!', text_color='#90EE90')
+                
+                except ValueError:
+                    resultado_gravar_pedido.configure(text="'Quantidade' deve ser um número!", text_color='red')
+                
+
+        ctk.CTkButton(
+            frame_pedido, 
+            command=gravar_pedido,
+            text='Adicionar à lista de pedidos', 
+            fg_color="#DFBD00",
+            hover_color="#B49900", 
+            text_color='black'
+        ).grid(row=6, column=1, columnspan=2, padx=5, pady=30)
 
 
     # Button
