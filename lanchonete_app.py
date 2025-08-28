@@ -172,93 +172,24 @@ def apagar(entry_codigo):
         atualizar()
 
 # Pedido operador
-def pedido_op():
+def pedido_operador(cliente, codigo, quantidade):
     
     # Atualiza os dados
     atualizar()
+
+    # Adiciona o nome do cliente à lista
+    nomes.append(cliente)
+    # Lista de itens do pedido
+    itens_pedido = []
+    # Total do pedido
+    total = 0
+
+    # Coleta os dados do pedido
+    produto_nome = prod[cod.index(codigo)]
+    produto_valor = float(val[cod.index(codigo)])
     
-    # Inicia um loop
-    iniciar_pedido = "s"
+    subtotal = quantidade * produto_valor   # Calcula o subtotal
+    total += subtotal   # Soma ao total
     
-    # Enquanto o loop estiver ativo, solicita o nome do cliente
-    if iniciar_pedido == "s":
-        nome_cliente = input("\nDigite o nome do cliente: \n")
-        
-        # Verifica se o nome do cliente é válido
-        while nome_cliente == "" or nome_cliente.isnumeric():
-            print("\nDigite o nome corretamente!\n")
-            nome_cliente = input("\nDigite o nome do cliente: \n")
-
-        # Adiciona o nome do cliente à lista
-        nomes.append(nome_cliente)
-        # Lista de itens do pedido
-        itens_pedido = []
-        # Total do pedido
-        total = 0
-
-        # Inicia outro loop
-        continuar_pedido = "s"
-        while continuar_pedido == "s":
-            
-            # Lista os produtos
-            listar()
-            
-            itens = arquivo.read()
-            if len(itens) == 0:
-                input("\nÉ necessário cadastrar um produto.")
-                exit()
-
-            # Solicita o código do produto
-            pedido_cliente = input("Digite o código do produto desejado:\n")
-            
-            # Verifica se o código está na lista de códigos
-            while pedido_cliente not in cod:
-                print("\nDigite um código válido!")
-                pedido_cliente = input("Digite o código do produto desejado:\n")
-
-            # Solicita a quantidade
-            quantidade = input("\nDigite a quantidade desejada:\n")
-            
-            # Validação da quantidade
-            while quantidade.isalpha():
-                print("\nInválido!")
-                quantidade = input("\nDigite a quantidade desejada:\n")
-
-            quantidade = int(quantidade) # Converte quantidade para inteiro
-            
-            # Coleta os dados do pedido
-            produto_nome = prod[cod.index(pedido_cliente)]
-            produto_valor = float(val[cod.index(pedido_cliente)])
-            
-            subtotal = quantidade * produto_valor   # Calcula o subtotal
-            total += subtotal   # Soma ao total
-            
-            # Adiciona à lista de itens do pedido
-            itens_pedido.append((produto_nome, quantidade, produto_valor, subtotal))
-
-            # Pergunta se o usuário deseja adicionar mais algum produto ao pedido
-            continuar_pedido = input("\nDeseja adicionar mais algum produto? s/n: \n").lower()
-            
-            # Verifica se a entrada do usuário em continuar_pedido é válida
-            while continuar_pedido not in ["s", "n"]:
-                print("Inválido! Digite uma opção válida")
-                continuar_pedido = input("\nDeseja adicionar mais algum produto? s/n: \n").lower()
-
-        # Exibe um resumo do pedido
-        print("\n\n--- RESUMO ---\n")
-        print(f"Cliente: {nome_cliente}")
-        print("Produtos adicionados:")
-        for item in itens_pedido:
-            print(f"- {item[0]} | Quantidade: {item[1]} | Unitário: R${item[2]:.2f} | Subtotal: R${item[3]:.2f}")
-        print(f"\nValor total: R${total:.2f}")
-
-        # Confirmação so pagamento
-        confirmar = input("Aperte 'Enter' para confirmar o pagamento ou digite 0 para voltar.\n")
-        if confirmar == "":
-            print(f"\nCompra concluída com sucesso!")
-        else:
-            print("\nCompra cancelada.")
-            
-    # Caso não deseje iniciar o pedido, o loop é encerrado
-    else:
-        continuar_pedido = "n"
+    # Adiciona à lista de itens do pedido
+    itens_pedido.append((produto_nome, quantidade, produto_valor, subtotal))

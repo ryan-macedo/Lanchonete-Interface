@@ -1,7 +1,16 @@
 # Importa CustomTkinter
 import customtkinter as ctk
+
+# Importa Pillow para imagens/ícones
+from PIL import Image
+
 # Importa o menu do código da lanchonete
-from lanchonete_app import cadastro, listar, alterar, apagar, pedido_op, busca_cod, cod, prod, val, atualizar
+from lanchonete_app import cadastro, listar, alterar, apagar, pedido_operador, busca_cod, cod, prod, val, atualizar, nomes
+
+# Imagens
+carrinho_icon = ctk.CTkImage(Image.open('icons/carrinho.png'), size=(25, 25))
+
+
 
 # Funções
 def foco_janela(janela):
@@ -340,6 +349,7 @@ def abrir_operador():
 
         listar(frame_lista)
 
+
         # Frame do cliente (lado direito)
         frame_pedido = ctk.CTkFrame(janela_pedido)
         frame_pedido.grid(row=0, column=1, pady=20, padx=10, sticky="nsew")
@@ -382,6 +392,8 @@ def abrir_operador():
                 try:
                     quantidade_int = int(quantidade)
                     resultado_gravar_pedido.configure(text='Produto adicionado ao carrinho!', text_color='#90EE90')
+
+                    pedido_operador(cliente, codigo, quantidade)
                 
                 except ValueError:
                     resultado_gravar_pedido.configure(text="'Quantidade' deve ser um número!", text_color='red')
@@ -394,7 +406,19 @@ def abrir_operador():
             fg_color="#DFBD00",
             hover_color="#B49900", 
             text_color='black'
-        ).grid(row=6, column=1, columnspan=2, padx=5, pady=30)
+        ).grid(row=6, column=1, columnspan=2, padx=5, pady=5)
+
+        # Botão do carrinho
+        carrinho = ctk.CTkButton(frame_pedido, 
+            text='Seu carrinho', 
+            image=carrinho_icon,
+            fg_color="transparent",
+            hover_color="#3D3D3D",
+            corner_radius=25,
+            text_color='white'
+            )
+        carrinho.grid(row=7, column=1, columnspan=2, padx=5, pady=5)
+
 
 
     # Button
