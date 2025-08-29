@@ -9,6 +9,7 @@ val = []             # Lista para armazenar os valores dos produtos
 cod_alterar = []     # Lista auxiliar para armazenar os códigos válidos para alteração
 pedido = [cod, prod, val]          # Lista usada para armazenar pedidos (não utilizada nesse trecho)
 nomes = []           # Lista não utilizada nesse trecho
+itens_pedido = []    # Lista para armazenar os detalhes do pedido do cliente
 temp = []            # Lista temporária para análise de códigos
 temp_cod = []        # Lista temporária para códigos faltantes
 arquivo = open('produtos.txt', 'a+', encoding='utf-8')  # Abre o arquivo de produtos para leitura e escrita
@@ -179,8 +180,7 @@ def pedido_operador(cliente, codigo, quantidade):
 
     # Adiciona o nome do cliente à lista
     nomes.append(cliente)
-    # Lista de itens do pedido
-    itens_pedido = []
+
     # Total do pedido
     total = 0
 
@@ -192,4 +192,44 @@ def pedido_operador(cliente, codigo, quantidade):
     total += subtotal   # Soma ao total
     
     # Adiciona à lista de itens do pedido
-    itens_pedido.append((produto_nome, quantidade, produto_valor, subtotal))
+    itens_pedido.append((produto_nome, quantidade, produto_valor, subtotal, total))
+
+def calcular_total():
+    return sum(item[3] for item in itens_pedido)
+
+
+
+# Adicionar à lista de pedidos
+def lista_carrinho(frame_destino):
+    for widget in frame_destino.winfo_children():
+        widget.destroy()
+
+    atualizar()
+
+    # Label tabela
+    label_produto = ctk.CTkLabel(frame_destino, text='PRODUTO', font=('Arial', 12, 'bold'))
+    label_produto.grid(column=0, row=0, padx=30, pady=5)
+
+    label_qtd = ctk.CTkLabel(frame_destino, text='QTD.', font=('Arial', 12, 'bold'))
+    label_qtd.grid(column=1, row=0, padx=30, pady=5)
+
+    label_uni = ctk.CTkLabel(frame_destino, text='VALOR UNI.', font=('Arial', 12, 'bold'))
+    label_uni.grid(column=2, row=0, padx=30, pady=5)
+
+    label_subtotal = ctk.CTkLabel(frame_destino, text='SUBTOTAL', font=('Arial', 12, 'bold'))
+    label_subtotal.grid(column=3, row=0, padx=30, pady=5)
+
+    # Listagem de produtos
+    if len(cod) == 0:
+        ctk.CTkLabel(frame_destino, text='Não há produtos cadastrados.', text_color="#FFD700", font=('Arial', 14, 'underline')).grid(
+            row=3, column=0, columnspan=3, pady=5
+            )
+
+    else:
+        for i in range(len(itens_pedido)):
+            item = itens_pedido[i]
+            ctk.CTkLabel(frame_destino, text=item[0], font=('Arial', 12, 'underline')).grid(column=0, row=i + 1, pady=5, sticky='we')
+            ctk.CTkLabel(frame_destino, text=item[1], font=('Arial', 12, 'bold')).grid(column=1, row=i + 1, pady=5, sticky='we')
+            ctk.CTkLabel(frame_destino, text=f'R$ {item[2]}',font=('Arial', 12, 'bold')).grid(column=2, row=i + 1, pady=5, sticky='we')
+            ctk.CTkLabel(frame_destino, text=f'R$ {item[3]}', text_color='#32CD32', font=('Arial', 14, 'bold')).grid(column=3, row=i + 1, pady=5, sticky='we')
+            
