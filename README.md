@@ -13,7 +13,7 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 
 ## ⚙️ Funcionalidades
 
-![sistema rodadando](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcm40dDF3c3U2ZzN5M2ZhZzBsNm5paTM4cDkzdjN4ZmswaWJpdnRlbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ThDbPm6pc6OW9M20mF/giphy.gif)
+<img src="https://github.com/user-attachments/assets/3331eef5-8156-4808-b071-4b6de894a938" alt="Sistema funcionando">
 
 ### 👨‍💼 Administrador:
 
