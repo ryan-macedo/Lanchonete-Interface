@@ -43,8 +43,8 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 ### 🛒 Operador:
 
 ***1. Realizar pedido***
-* Solicita o nome do cliente que está fazendo o pedido
 * Exibe os produtos cadastrados no arquivo
+* Solicita o nome do cliente que está fazendo o pedido
 * Solicita o código do produto desejado e a quantidade
 * Permite adicionar vários produtos
 * Exibe um resumo do pedido
