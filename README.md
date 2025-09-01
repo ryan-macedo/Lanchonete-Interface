@@ -11,9 +11,10 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 - `Manipulação de arquivos '.txt'`
 - `Estruturas de dados básicas (listas, loops, funções e condicionais)`
 
-
-
 ## ⚙️ Funcionalidades
+
+![sistema rodadando](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExcm40dDF3c3U2ZzN5M2ZhZzBsNm5paTM4cDkzdjN4ZmswaWJpdnRlbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ThDbPm6pc6OW9M20mF/giphy.gif)
+
 ### 👨‍💼 Administrador:
 
 ***1. Cadastrar produto***  
