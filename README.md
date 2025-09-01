@@ -51,7 +51,7 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 
 ## ▶️ Como executar o projeto
 1. Instale o [Python 3](https://www.python.org/downloads/)
-2. Instale a biblioteca `CustomTKinter` utilizando o seguinte comando no terminal:
+2. Instale a biblioteca [CustomTKinter](https://customtkinter.tomschimansky.com/documentation/) utilizando o seguinte comando no terminal:
 ```
 pip install customtkinter
 ```
