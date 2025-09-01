@@ -13,7 +13,7 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 
 ## ⚙️ Funcionalidades
 
-<img src="https://github.com/user-attachments/assets/3331eef5-8156-4808-b071-4b6de894a938" alt="Sistema funcionando">
+<img src="https://github.com/user-attachments/assets/02563cca-88d0-4475-bd5a-8301e2feb29e" width=700 alt="Interface">
 
 ### 👨‍💼 Administrador:
 
