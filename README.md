@@ -49,11 +49,12 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 * Permite adicionar vários produtos
 * Exibe um resumo do pedido
 
+
 ## 🎥 Demonstração
 ### Vídeo completo
-[![Assista ao vídeo](https://img.youtube.com/vi/HnyHhEY_Zlg/maxresdefault.jpg
-)](https://youtu.be/HnyHhEY_Zlg?feature=shared)
-
+<a href="https://www.youtube.com/watch?v=HnyHhEY_Zlg">
+  <img src="https://img.youtube.com/vi/HnyHhEY_Zlg/maxresdefault.jpg" width="300">
+</a>
 
 ## ▶️ Como executar o projeto
 1. Instale o [Python 3](https://www.python.org/downloads/)
