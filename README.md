@@ -51,7 +51,8 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 
 ## 🎥 Demonstração
 ### Vídeo completo
-[![Assista ao vídeo](https://img.youtube.com/vi/SEU_ID/maxresdefault.jpg)](https://youtu.be/HnyHhEY_Zlg?feature=shared)
+[![Assista ao vídeo](https://img.youtube.com/vi/HnyHhEY_Zlg/maxresdefault.jpg
+)](https://youtu.be/HnyHhEY_Zlg?feature=shared)
 
 
 ## ▶️ Como executar o projeto
