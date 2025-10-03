@@ -9,11 +9,13 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 ## 💻 Tecnologias utilizadas
 - `Python 3`
 - `Manipulação de arquivos '.txt'`
-- `Estruturas de dados básicas (listas, loops, funções e condicionais)`
-
-
+- `Estruturas de dados básicas (listas, funções e condicionais)`
+- `CustomTkinter (interface gráfica) – em desenvolvimento`
 
 ## ⚙️ Funcionalidades
+
+<img src="https://github.com/user-attachments/assets/02563cca-88d0-4475-bd5a-8301e2feb29e" width=700 alt="Interface">
+
 ### 👨‍💼 Administrador:
 
 ***1. Cadastrar produto***  
@@ -28,9 +30,7 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
      
 ***3. Alterar produto***
    * Exibe os produtos cadastrados
-   * Solicita o código do produto que será alterado
-   * Solicita a nova descrição do produto
-   * Solicita o novo valor do produto
+   * Solicita código, nova descrição e novo valor do produto
    * Atualiza o arquivo `'produtos.txt'`
      
 ***4. Apagar produto***
@@ -43,17 +43,30 @@ permitindo que o usuário acesse a parte do Administrador e do Operador.
 ### 🛒 Operador:
 
 ***1. Realizar pedido***
-* Questiona se o usuário deseja realizar um pedido
-* Solicita o nome do cliente que está fazendo o pedido
 * Exibe os produtos cadastrados no arquivo
-* Solicita o código do produto desejado
-* Solicita a quantidade
-* Questiona se o usuário deseja adicionar mais algum produto
+* Solicita o nome do cliente que está fazendo o pedido
+* Solicita o código do produto desejado e a quantidade
+* Permite adicionar vários produtos
 * Exibe um resumo do pedido
+
+
+## 🎥 Demonstração
+### Vídeo completo
+<a href="https://www.youtube.com/watch?v=HnyHhEY_Zlg">
+  <img src="https://img.youtube.com/vi/HnyHhEY_Zlg/maxresdefault.jpg" width="300">
+</a>
 
 ## ▶️ Como executar o projeto
 1. Instale o [Python 3](https://www.python.org/downloads/)
-2. Clone este repositório:
+2. Instale a biblioteca [CustomTKinter](https://customtkinter.tomschimansky.com/documentation/) utilizando o seguinte comando no terminal:
+```
+pip install customtkinter
+```
+3. Clone este repositório:
 ```
 git clone https://github.com/ryan-macedo/Lanchonete.git
+```
+4. Execute o arquivo principal:
+```
+python interface.py
 ```
