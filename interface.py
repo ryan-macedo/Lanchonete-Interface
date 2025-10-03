@@ -9,6 +9,7 @@ from lanchonete_app import cadastro, listar, alterar, apagar, pedido_operador, b
 
 # Imagens
 carrinho_icon = ctk.CTkImage(Image.open('icons/carrinho.png'), size=(25, 25))
+adicionar_icon = ctk.CTkImage(Image.open('icons/adicionar.png'), size=(25, 25))
 
 
 
@@ -333,7 +334,7 @@ def abrir_operador():
     def escolha_sim():
         janela_pedido = ctk.CTkToplevel()
         janela_pedido.title("Pedido")
-        janela_pedido.geometry("740x470")
+        janela_pedido.geometry("740x500")
 
         # Foco janela
         foco_janela(janela_pedido)
@@ -348,14 +349,14 @@ def abrir_operador():
             height=250,
             label_text='MENU'
         )
-        frame_lista.grid(row=0, column=0, pady=20, padx=10, sticky="nsew")
+        frame_lista.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
 
         listar(frame_lista)
 
 
         # Frame do cliente (lado direito)
         frame_cliente = ctk.CTkFrame(janela_pedido)
-        frame_cliente.grid(row=0, column=1, pady=20, padx=10, sticky="nsew")
+        frame_cliente.grid(row=0, column=1, pady=10, padx=10, sticky="nsew")
 
 
         ctk.CTkLabel(frame_cliente, text='CLIENTE:', font=('Arial', 14, 'bold')).grid(row=0, column=2, padx=5, pady=10, sticky='w')
@@ -379,6 +380,8 @@ def abrir_operador():
 
         resultado_gravar_pedido = ctk.CTkLabel(frame_cliente, text='')
         resultado_gravar_pedido.grid(row=5, column=1, columnspan=2, padx=5, pady=30)
+
+        ctk.CTkLabel(frame_cliente, text='').grid(row=10, column=0)
 
         def gravar_pedido():
             cliente = entry_cliente.get().strip().upper()
@@ -427,13 +430,11 @@ def abrir_operador():
             frame_cliente, 
             command=gravar_pedido,
             text='Adicionar à lista de pedidos', 
-            fg_color="#DFBD00",
-            hover_color="#B49900", 
-            text_color='black'
-        ).grid(row=6, column=1, columnspan=2, padx=5, pady=5)
-
-
-
+            image=adicionar_icon,
+            fg_color="#000000",
+            hover_color="#3D3D3D", 
+            text_color='white'
+        ).grid(row=6, column=1, columnspan=2, padx=5, pady=5, sticky='nsew')
 
         # Botão do carrinho
         carrinho = ctk.CTkButton(frame_cliente, 
@@ -442,12 +443,15 @@ def abrir_operador():
             image=carrinho_icon,
             fg_color="transparent",
             hover_color="#3D3D3D",
-            corner_radius=25,
             text_color='white'
             )
-        carrinho.grid(row=7, column=1, columnspan=2, padx=5, pady=5)
+        carrinho.grid(row=7, column=1, columnspan=2, padx=5, pady=5, sticky='nsew')
 
-
+        finalizar_pedido = ctk.CTkButton(frame_cliente,
+        text='Finalizar pedido',
+        fg_color='#4CAF50',
+        hover_color='#337736')
+        finalizar_pedido.grid(row=8, column=1, columnspan=2, padx=10, pady=10, sticky='nsew')
 
     # Button
     button_op = ctk.CTkButton(janela_operador, text='Sim', command=escolha_sim)
