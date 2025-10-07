@@ -406,7 +406,7 @@ def abrir_operador():
         def carrinho():
             janela_carrinho = ctk.CTkToplevel()
             janela_carrinho.title("Seu Carrinho")
-            janela_carrinho.geometry("500x500")
+            janela_carrinho.geometry("500x300")
             
             # Foco na janela
             foco_janela(janela_carrinho)
@@ -426,7 +426,17 @@ def abrir_operador():
             label_valor_total = ctk.CTkLabel(frame_pedido2, text=f'Total: R$ {calcular_total()}', font=('Arial', 18, 'underline'))
             label_valor_total.pack()
 
-        ctk.CTkButton(
+            # Finalizar pedido
+        def finalizar_pedido():
+            janela_finalizar_pedido = ctk.CTkToplevel()
+            janela_finalizar_pedido.title("Finalizar Pedido")
+            janela_finalizar_pedido.geometry("500x300")
+            
+            # Foco na janela
+            foco_janela(janela_finalizar_pedido)
+
+
+        add_pedido = ctk.CTkButton(
             frame_cliente, 
             command=gravar_pedido,
             text='Adicionar à lista de pedidos', 
@@ -447,11 +457,12 @@ def abrir_operador():
             )
         carrinho.grid(row=7, column=1, columnspan=2, padx=5, pady=5, sticky='nsew')
 
-        finalizar_pedido = ctk.CTkButton(frame_cliente,
-        text='Finalizar pedido',
-        fg_color='#4CAF50',
-        hover_color='#337736')
-        finalizar_pedido.grid(row=8, column=1, columnspan=2, padx=10, pady=10, sticky='nsew')
+        proximo = ctk.CTkButton(frame_cliente,
+            command=finalizar_pedido,
+            text='Próximo',
+            fg_color='#4CAF50',
+            hover_color='#337736')
+        proximo.grid(row=8, column=1, columnspan=2, padx=10, pady=10, sticky='nsew')
 
     # Button
     button_op = ctk.CTkButton(janela_operador, text='Sim', command=escolha_sim)
